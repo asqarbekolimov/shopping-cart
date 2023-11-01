@@ -1,6 +1,7 @@
 import { useQuery } from "react-query";
 import { CartItemType } from "./types/app.type";
 import { Loader } from "./components";
+import ProductCard from "./components/product-card/product-card";
 
 const getProduct = async (): Promise<CartItemType[]> => {
   // Since the API returns an array of CartItemType
@@ -15,7 +16,7 @@ const App = () => {
     getProduct
   );
   const getTotalItems = () => null;
-  const handleAddToCart = () => null;
+  const handleAddToCart = (clickedItem: CartItemType) => null;
   const handleRemovFromCart = () => null;
 
   if (isLoading)
@@ -26,7 +27,19 @@ const App = () => {
     );
   if (error) return <div className="text-center">Something went wrong!!!</div>;
 
-  return <h1 className="text-3xl font-bold underline">Hello world!</h1>;
+  return (
+    <div>
+      <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
+        <h2 className="sr-only">Products</h2>
+
+        <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3  ">
+          {data?.map((item) => (
+            <ProductCard key={item.id} item={item} />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default App;
