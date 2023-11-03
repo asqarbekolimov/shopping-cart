@@ -50,6 +50,27 @@ const App = () => {
       setOrder(newOrder);
     }
   };
+
+  const removeFromBasket = (itemID) => {
+    const newOrder = order.filter((item) => item.id !== itemID);
+    setOrder(newOrder);
+  };
+
+  const decrQuantity = (itemID) => {
+    const newOrder = order.map((el) => {
+      if (el.id === itemID) {
+        const newQuantity = el.quantity - 1;
+        return {
+          ...el,
+          quantity: newQuantity >= 0 ? newQuantity : 0,
+        };
+      } else {
+        return el;
+      }
+    });
+    setOrder(newOrder);
+  };
+
   return (
     <div className="bg-white">
       <div
@@ -66,6 +87,8 @@ const App = () => {
         setOpen={setOpen}
         order={order}
         addToBasket={addToBasket}
+        removeFromBasket={removeFromBasket}
+        decrQuantity={decrQuantity}
       />
       <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
         <h2 className="sr-only">Products</h2>

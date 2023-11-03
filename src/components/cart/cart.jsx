@@ -2,7 +2,14 @@ import { Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 
-const Cart = ({ open, setOpen, order, addToBasket }) => {
+const Cart = ({
+  open,
+  setOpen,
+  order,
+  addToBasket,
+  removeFromBasket,
+  decrQuantity,
+}) => {
   const totalPrice = order.reduce((sum, el) => {
     return sum + el.price * el.quantity;
   }, 0);
@@ -93,11 +100,21 @@ const Cart = ({ open, setOpen, order, addToBasket }) => {
                                       <button
                                         onClick={() => addToBasket(product)}
                                         type="button"
-                                        className="font-medium text-indigo-600 hover:text-indigo-500"
+                                        className="font-medium text-indigo-600 hover:text-indigo-500 border py-1 px-3"
                                       >
-                                        Add
+                                        +
                                       </button>
                                       <button
+                                        onClick={() => decrQuantity(product.id)}
+                                        type="button"
+                                        className="font-medium text-indigo-600 hover:text-indigo-500 border py-1 px-3"
+                                      >
+                                        -
+                                      </button>
+                                      <button
+                                        onClick={() =>
+                                          removeFromBasket(product.id)
+                                        }
                                         type="button"
                                         className="font-medium text-indigo-600 hover:text-indigo-500"
                                       >
@@ -122,12 +139,12 @@ const Cart = ({ open, setOpen, order, addToBasket }) => {
                         Shipping and taxes calculated at checkout.
                       </p>
                       <div className="mt-6">
-                        <a
-                          href="#"
-                          className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
+                        <button
+                          onClick={() => setOpen((state) => !state)}
+                          className="w-full flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
                         >
                           Checkout
-                        </a>
+                        </button>
                       </div>
                       <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
                         <p>
