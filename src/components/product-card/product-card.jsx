@@ -1,7 +1,6 @@
 import React from "react";
 
-const ProductCard = ({ featured }) => {
-  console.log(featured);
+const ProductCard = ({ featured, addToBasket }) => {
   return (
     <>
       <div className="group">
@@ -17,7 +16,10 @@ const ProductCard = ({ featured }) => {
           <p className="mt-1 text-lg font-medium text-gray-900">
             ${featured.price}
           </p>
-          <button className="bg-green-600 text-white py-1 px-3 rounded">
+          <button
+            onClick={() => addToBasket(featured)}
+            className="bg-green-600 text-white py-1 px-3 rounded"
+          >
             BUY
           </button>
         </div>
